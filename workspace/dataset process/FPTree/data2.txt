@@ -1,0 +1,9 @@
+milk,egg,bread,chips
+egg,baomi,chips,beer
+eeg,bread,chips
+milk,egg,bread,baomi,chips,beer
+milk,bread,beer
+egg,bread,beer
+milk,bread,chips
+milk,egg,bread,button,chips
+milk,egg.button,chips

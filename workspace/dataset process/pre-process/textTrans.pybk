@@ -1,0 +1,17 @@
+f = open("one-locus_EDM-1_001.txt")
+o = open("one.txt",'w')             
+line = f.readline()            
+#while line:
+print line, 
+line = f.readline()
+line2 = []
+#print len(line)
+for i in range(0, len(line)):
+	if line[i] == '0':
+		line2 = line2.append(' ')
+	elif line[i] == '1':
+		line2[i] = line2.append('a'+str(i))
+	elif line[i] == '2':
+		line2[i] = line2.append('b'+str(i))
+print line,
+f.close()
