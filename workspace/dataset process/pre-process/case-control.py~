@@ -1,0 +1,7 @@
+f = open("2-locus_EDM-1_001.txt")
+o = open("one.txt",'w')             
+line0 = f.readline()            
+print line0, 
+
+
+f.close()
