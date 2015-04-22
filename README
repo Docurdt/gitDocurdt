@@ -1,0 +1,92 @@
+The test.py is a script which aimed to install a MPICH2 based HPC(High performance cluster) automatically.
+It includes networking config, nfs config, ssh config, user management, MPICH2 install, matlab install, MatlabMPI and MPI for python. 
+The structure of the cluster is as follows:
+        master node,
+        ----compute node1,
+        ----compute node2,
+        ----compute node3,
+        ...
+        
+        
+##work flow
+##network setup
+##hosts
+##adduser
+    #sudo newusers < user
+    #sudo chpasswd < passwd
+
+#####on master ###sudo apt-get install nfs-kernel-server
+
+###on all nodes### sudo apt-get install nfs-common
+# install ssh
+#install putty-tools
+
+###master nodes file changes###  /etc/exports
+    ##/home/mpiuser *(rw,sync,no_subtree_check)
+
+#master node# sudo exportfs -a
+
+#master node set firewall# sudo ufw allow from 192.168.1.0/24
+
+#node1:~$ sudo mount master:/home/mpiuser /home/mpiuser
+#compute node# /etc/fstab #master:/home/mpiuser /home/mpiuser nfs
+
+## ssh configure ssh-keygen    ssh-copy-id localhost
+
+## all nodes## sudo apt-get install mpich2
+
+# on master node # touch hosts
+
+#using hydry # mpiuser@master:~$ mpiexec -f hosts -n 3 /home/mpiuser/bin/cpi
+
+#install torque
+    #[root]# apt-get update
+    #[root]# apt-get install libxml2-devel openssl-devel gcc gcc-c++
+    #       [root]# tar -xzvf torque-4.2.9.tar.gz
+    #[root]# cd torque-4.2.9/
+    #./configure
+    #[root]# make
+    #[root]# make install
+    #make packages
+    #> cp torque-package-mom-linux-i686.sh /shared/storage/
+    #> cp torque-package-clients-linux-i686.sh /shared/storage/
+
+    ##for i in node01 node02 node03 node04 ; do ssh ${i} /tmp/torque-package-mom-linux-i686.sh --install ; done
+    ##for i in node01 node02 node03 node04 ; do ssh ${i} /tmp/torque-package-clients-linux-i686.sh --install ; done
+
+    #cp contrib/init.d/debian.pbs_mom /etc/init.d/pbs_mom
+    #update-rc.d pbs_mom defaults
+    #cp contrib/init.d/debian.pbs_server /etc/init.d/pbs_server
+    #pdate-rc.d pbs_server defaults
+
+
+    #The following example shows a possible node file listing.
+    #TORQUE_HOME/server_priv/nodes:
+    ## Nodes 001 and 003-005 are cluster nodes
+    ##
+    #node001 np=2 cluster01 rackNumber22
+    ##
+    ## node002 will be replaced soon
+    #node002:ts waitingToBeReplaced
+    ## node002 will be replaced soon
+    ##
+    #   node003 np=4 cluster01 rackNumber24
+    #node004 cluster01 rackNumber25
+    #node005 np=2 cluster01 rackNumber26 RAM16GB
+    #node006
+    #node007 np=2
+    #node008:ts np=4
+
+#install maui
+    #tar -xzvf maui-3.3.1.tar.gz
+    #cd maui-3.3.1/
+    #./configure
+    #make
+    #make install
+        #cp contrib/init.d/maui /etc/init.d/maui
+        #pdate-rc.d maui defaults
+
+#install matlab
+    #mount iso
+    #copy the configure files
+    #install
